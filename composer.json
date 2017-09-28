@@ -1,0 +1,14 @@
+{
+  "name": "BBear/Tools",
+  "authors": [
+    {
+      "name": "BBear",
+      "email": "1067383001@qq.com"
+    }
+  ],
+  "autoload":{
+    "psr-4":{
+      "BBear\\Tools\\":"src"
+    }
+  }
+}
