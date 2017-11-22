@@ -1,9 +1,14 @@
 {
-  "name": "BBear/Tools",
+  "name": "bbear/tools",
+  "description": "Some easy method",
+  "license": "LGPL",
+  "require": {
+    "php": ">=5.4.0"
+  },
   "authors": [
     {
       "name": "BBear",
-      "email": "1067383001@qq.com"
+      "email": "bear0909@foxmail.com"
     }
   ],
   "autoload":{

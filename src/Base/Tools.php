@@ -24,28 +24,26 @@ class Tools
     }
 
 
-    /*
- * 格式化价格 存储之前使用
- */
+
     /**
      * mhx
-     * 说明：格式化价格 存储之前使用
+     * 说明：格式化价格(分转元) 存储之前使用
      * @param int $price
      * @return int
      */
-    function beforePrice($price = 0){
+    public static function beforePrice($price = 0){
         return $price * 100;
     }
 
     /**
      * mhx
-     * 说明：格式化价格 读取之后使用
+     * 说明：格式化价格(元转分) 读取之后使用
      * 注：sprintf  末位会因精度导致四舍五入
      * @param int $price
      * @return float
      */
-    function lastPrice($price = 0){
-        return floatval(sprintf('%1.2f',$price/100));
+    public static function lastPrice($price = 0){
+        return floatval(self::float2($price/100));
     }
 
     /**
@@ -55,7 +53,7 @@ class Tools
      * @param int $n
      * @return string
      */
-    function float2($n = 0){
+    public static function float2($n = 0){
         return sprintf('%1.2f',$n);
     }
 
@@ -71,10 +69,9 @@ class Tools
     public static function page( int $page , int $count , int $pagesize = 10) :array
     {
 
-        if(empty($count)){
-            throw new \Exception('Tools page throw : count must is integer and greater than 0!');
-        }
-
+//        if(empty($count)){
+//            throw new \Exception('Tools page throw : count must is integer and greater than 0!');
+//        }
         if( empty($page) || !is_numeric($page) ){
             $page = 1;
         }
@@ -121,9 +118,9 @@ class Tools
             $scopePointInteger += intval($v);
         }
 
-        if($scopePointInteger <= 0 ){
-            throw new \Exception('Tools multiPage throw : sum value of array $C must be greater than 0!');
-        }
+//        if($scopePointInteger <= 0 ){
+//            throw new \Exception('Tools multiPage throw : sum value of array $C must be greater than 0!');
+//        }
 
         $count = $scopePointInteger;
         //print_r($scopeC);
@@ -220,4 +217,60 @@ class Tools
         }
         return false;
     }
+
+
+
+    /**
+     * mhx
+     * 说明：symmetry 简单对称加密算法之加密
+     * @param String $string 需要加密的字串
+     * @param String $skey 加密EKY  需要和解码时对应
+     * @param array $mix 混淆字符也可以用来解决urlEncode中对'+'和' '的编码问题 需要和解码时对应
+     * @return String
+     */
+    public static function sEncode($string = '', $skey = 'wenzi' ,$mix = array('#b1'=>'+' , '#b2'=>'/' , '@A' => ' ')) {
+
+        $string = base64_encode($string);
+        $strlen = strlen($string);
+        $skLen = strlen($skey);
+        $str = '';
+        for($i=0; $i < $strlen ; $i++){
+            $sI =  $i % $skLen;
+            $str .= $string[$i] ^ $skey[$sI];
+        }
+        if($mix){
+            $arrayKey = array_keys($mix);
+            $arrayValue = array_values($mix);
+            $str = str_replace($arrayValue, $arrayKey, $str);
+        }
+
+        return $str;
+    }
+
+    /**
+     * mhx
+     * 说明：symmetry 简单对称加密算法之解密
+     * @param string $string 需要解密的字串
+     * @param string $skey $skey 解密KEY
+     * @param array $mix
+     * @return string
+     */
+    public static function sDecode($string = '', $skey = 'wenzi' , $mix = array('#b1'=>'+' , '#b2'=>'/' , '@A' => ' ')) {
+
+        if($mix){
+            $arrayKey = array_keys($mix);
+            $arrayValue = array_values($mix);
+            $string = str_replace($arrayKey,$arrayValue , $string);
+        }
+        $strlen = strlen($string);
+        $skLen = strlen($skey);
+        $str = '';
+        for($i=0; $i < $strlen ; $i++){
+            $sI =  $i % $skLen;
+            $str .= $string[$i] ^ $skey[$sI];
+        }
+
+        return base64_decode($str , true);
+    }
+
 }
