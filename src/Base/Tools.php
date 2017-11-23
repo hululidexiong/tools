@@ -273,4 +273,9 @@ class Tools
         return base64_decode($str , true);
     }
 
+    public static function ip(){
+        $reIP = $_SERVER["REMOTE_ADDR"];
+        return $reIP;
+    }
+
 }

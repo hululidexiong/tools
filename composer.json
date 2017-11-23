@@ -1,6 +1,7 @@
 {
   "name": "bbear/tools",
   "description": "Some simple method for often use",
+  "type": "library",
   "license": "LGPL",
   "require": {
     "php": ">=5.4.0"
