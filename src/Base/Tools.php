@@ -273,6 +273,24 @@ class Tools
         return base64_decode($str , true);
     }
 
+    public static function UrlParse($url,$value,$method = 'add_param'){
+
+        $rUrl = '';
+        $parse = parse_url($url);
+        if($parse){
+            switch($method){
+                case 'add_param':
+                    if($parse['query']){
+                        $rUrl = $url . '&' . $value;
+                    }else{
+                        $rUrl = $url . '?' . $value;
+                    }
+                    break;
+            }
+        }
+        return $rUrl;
+    }
+
     public static function ip(){
         $reIP = $_SERVER["REMOTE_ADDR"];
         return $reIP;
