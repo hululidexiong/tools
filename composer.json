@@ -2,14 +2,14 @@
   "name": "bbear/tools",
   "description": "Some simple method for often use",
   "type": "library",
-  "license": "LGPL",
+  "license": "MIT",
   "require": {
     "php": ">=5.4.0"
   },
   "authors": [
     {
       "name": "BBear",
-      "email": "bear0909@foxmail.com"
+      "email": "hululidexiong@163.com"
     }
   ],
   "autoload":{
