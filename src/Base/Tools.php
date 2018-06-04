@@ -244,7 +244,7 @@ class Tools
             $str = str_replace($arrayValue, $arrayKey, $str);
         }
 
-        return $str;
+        return base64_encode($str);
     }
 
     /**
@@ -256,7 +256,7 @@ class Tools
      * @return string
      */
     public static function sDecode($string = '', $skey = 'wenzi' , $mix = array('#b1'=>'+' , '#b2'=>'/' , '@A' => ' ')) {
-
+        $string = base64_decode( $string , TRUE  );
         if($mix){
             $arrayKey = array_keys($mix);
             $arrayValue = array_values($mix);
